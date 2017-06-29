@@ -1,35 +1,43 @@
 import random
 import time
 
+win_rows = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
+
 board = list(range(0, 10))  # 3x3 board for the game
-game_on = 1  # 1=game runs or 0=game stops
+
+"""game_on = 1  # 1=game runs or 0=game stops
 gamerounds = 0  # all game rounds
 turns = 0  # turn num in a game
 whos_first = 0  # which player is first 1 or 2
-win_rows = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
 who_wins = ""  # who wins the game? x or o? or draw?
 p1wins = 0  # P1 score count
 p2wins = 0  # P2 score count
-draws = 0  # Draw count
-score_sets = {}
+draws = 0  # Draw count"""
+"
+score_sets = {
+            "game_on": 1,
+            "gamerounds": 0
+            "turns": 0
+            "whos_first": 0
+            "who_wins": ""
+            "p1wins": 0
+            "p2wins": 0
+            "draws": 0
+            }
 
 
 def new_game():  # new game. resets a lot of things...
     global board
-    global turns
-    global gamerounds
-    global game_on
     board = [" "]*10
-    gamerounds += 1
-    turns = 1
-    game_on = 1
+    score_sets["gamerounds"] += 1
+    score_sets["turns"] = 1
+    score_sets["game_on"] = 1
     random_player_first()
     show()
 
 
 def random_player_first():
-    global whos_first
-    whos_first = random.randint(1, 2)
+    score_sets["whos_first"] = random.randint(1, 2)
 
 
 def end_game():  # end game. add score count
