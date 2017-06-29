@@ -41,36 +41,32 @@ def random_player_first():
 
 
 def end_game():  # end game. add score count
-    global p1wins
-    global p2wins
-    global draws
-    if who_wins == "x":
-        p1wins += 1
-    elif who_wins == "o":
-        p2wins += 1
-    elif who_wins == "draw":
-        draws += 1
+    if score_sets["who_wins"] == "x":
+        score_sets["p1wins"] += 1
+    elif score_sets["who_wins"] == "o":
+        score_sets["p2wins"] += 1
+    elif score_sets["who_wins"] == "draw":
+        score_sets["draws"] += 1
     win_message()
 
 
 def reset_scores():  # reset scores
-    global p1wins
-    global p2wins
-    global draws
-    global gamerounds
-    global turns
     board = range(0, 10)
-    gamerounds, turns, p1wins, p2wins, draws = 0, 0, 0, 0, 0
+    score_sets["gamerounds"] = 0
+    score_sets["turns"] = 0
+    score_sets["p1wins"] = 0
+    score_sets["p2wins"] = 0
+    score_sets["draws"] = 0
     print(" Resetting scores, please wait...")
     time.sleep(2)
 
 
 def win_message():
-    if who_wins == "x":
+    if score_sets["who_wins"] == "x":
         print("\033[1;31m", "Player1 wins!!!", "\033[0m")
-    elif who_wins == "o":
+    elif score_sets["who_wins"] == "o":
         print("\033[1;32m", "Player2 wins!!!", "\033[0m")
-    elif who_wins == "draw":
+    elif score_sets["who_wins"] == "draw":
         print(" It's a draw!!!")
     time.sleep(2)
 
@@ -87,16 +83,14 @@ def check_line(char, row):  # checks if 3 index of list is equal
 
 
 def check_win(char):  # checks each row for win, or draw at round number 9
-    global game_on
-    global who_wins
     for row in win_rows:
         if check_line(char, row):
-            who_wins = char
-            game_on = 0
+            score_sets["who_wins"] = char
+            score_sets["game_on"] = 0
             return
     if turns == 10:
-        who_wins = "draw"
-        game_on = 0
+        score_sets["who_wins"] = "draw"
+        score_sets["game_on"] = 0
         return
 
 
@@ -136,8 +130,7 @@ def player_turn(char):  # Player input, checks if the spot is taken
 
 
 def end_turn(char):
-    global turns
-    turns += 1
+    score_sets["turns"] += 1
     check_win(char)
     show()
 
